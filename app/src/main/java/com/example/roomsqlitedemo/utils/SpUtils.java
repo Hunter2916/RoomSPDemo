@@ -33,7 +33,7 @@ public class SpUtils {
     private static SharedPreferences sp;
     private static SharedPreferences.Editor editor;
 
-
+    //必须要实例化
     @SuppressLint("CommitPrefEdits")
     public static SharedPreferences getSp(Context context) {
         if (sp == null) {
@@ -42,7 +42,6 @@ public class SpUtils {
         }
         return sp;
     }
-
 
     /**
      * 存入字符串
@@ -223,7 +222,7 @@ public class SpUtils {
      * @param tag
      * @return
      */
-    public static <T> List<T> getDataList(String tag,Class<T>cls) {
+    public static <T> List<T> getDataList(String tag, Class<T> cls) {
         List<T> datalist = new ArrayList<>();
         String strJson = sp.getString(tag, null);
         if (null == strJson) {
@@ -231,7 +230,7 @@ public class SpUtils {
         }
         Gson gson = new Gson();
         JsonArray array = new JsonParser().parse(strJson).getAsJsonArray();
-        for(final JsonElement elem : array){
+        for (final JsonElement elem : array) {
             datalist.add(gson.fromJson(elem, cls));
         }
         return datalist;
