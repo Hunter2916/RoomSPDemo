@@ -1,13 +1,19 @@
 package com.example.roomsqlitedemo;
 
 import androidx.databinding.DataBindingUtil;
+
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.roomsqlitedemo.databinding.ActivityMainBinding;
+import com.example.roomsqlitedemo.room.AppDatabase;
+import com.example.roomsqlitedemo.room.User;
 import com.example.roomsqlitedemo.utils.SpUtils;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Userbean> listBean;
     private ArrayList<String> listString;
     private ArrayList<Map<String, Object>> listMap;
+    private int num = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,10 +67,45 @@ public class MainActivity extends AppCompatActivity {
         binding.btGet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String content = SpUtils.getDataList("listBean", Userbean.class).toString();
-                binding.tvContent.setText(content);
+                List<Userbean> listBean = SpUtils.getDataList("listBean", Userbean.class);
+                binding.tvContent.setText(new Gson().toJson(listBean));
 //                getStringUserId(SpUtils.<Userbean>getDataList("listBean"),"1521");
-                getStringUserId(SpUtils.<Userbean>getDataList("listBean", Userbean.class), "1521");
+                getStringUserId(SpUtils.getDataList("listBean", Userbean.class), "1521");
+            }
+        });
+        binding.btInsert.setOnClickListener(view -> {
+            User user = new User();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (int i = (num * 5); i < 5 + num * 5; i++) {
+                        user.firstName = "李";
+                        user.lastName = "翠花" + (i + 1);
+                        user.uid = i + 1;
+
+                        AppDatabase.getInstance().userDao().insertAll(user);
+                    }
+                }
+            }).start();
+            num++;
+        });
+
+        binding.btQuery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<User> users = AppDatabase.getInstance().userDao().getAll();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                binding.tvContent.setText(new Gson().toJson(users));
+                            }
+                        });
+                    }
+                }).start();
+
             }
         });
     }
