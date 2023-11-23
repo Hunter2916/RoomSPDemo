@@ -108,6 +108,20 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        binding.btDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        List<User> users = AppDatabase.getInstance().userDao().getAll();
+                        for (int j = 0; j < users.size() - 1; j++) {
+                            AppDatabase.getInstance().userDao().delete(users.get(j));
+                        }
+                    }
+                }).start();
+            }
+        });
     }
 
     /**

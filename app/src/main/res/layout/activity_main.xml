@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -12,27 +13,27 @@
             android:id="@+id/bt_put"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="存储信息" />
+            android:text="存储信息"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/bt_get"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textSize="16sp"
-            android:text="获取信息" />
+            android:text="获取信息"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="信息输出"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:background="@android:color/darker_gray"
-            android:layout_marginTop="16dp"
             android:padding="5dp"
+            android:text="信息输出"
             android:textColor="@android:color/black"
             android:textSize="14sp" />
 
@@ -40,17 +41,25 @@
             android:id="@+id/bt_insert"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:layout_marginTop="18dp"
-            android:text="增加用户数据" />
+            android:text="增加用户数据"
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/bt_query"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
             android:layout_marginTop="18dp"
-            android:text="查询用户数据" />
+            android:text="查询用户数据"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/bt_delete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="删除用户数据"
+            android:textSize="16sp" />
     </LinearLayout>
 
 </layout>
